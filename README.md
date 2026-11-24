@@ -36,7 +36,7 @@ assets/mockApi-BJ7H9aw2.js  API simulada y datos ficticios
 docs/                       documentación
 ```
 
-Los nombres con hash los generó Vite. La ruta base quedó fija en `/lektor/`: `index.html` pide `/lektor/assets/...` y el ayudante de precarga del JS (`modulepreload`) antepone `/lektor/` a los módulos. Por eso el sitio vive en:
+Los nombres con hash los generó Vite. La ruta base quedó fija en `/lektor/`: `index.html` pide `/lektor/assets/...` y el ayudante de precarga del JS (`modulepreload`) antepone `/lektor/` a los módulos. Con el repositorio renombrado a `lektor` y Pages activo, el sitio queda en:
 
 https://fortasec53-design.github.io/lektor/
 
