@@ -1,6 +1,11 @@
 # Despliegue
 
-La demo es un sitio estático. No hay servidor de aplicación ni paso de compilación en este repositorio: se publican los archivos tal como están.
+Hay dos piezas:
+
+- **La raíz** (`index.html`, `assets/`) es la demo compilada que debe seguir publicando GitHub Pages. `npm run build` no la toca: escribe en `dist/`.
+- **El código fuente** se compila con Vite. `npm run build` deja el sitio en `dist/` con base `/lektor/`. `npm run dist` arma el instalador Windows. Los pasos están en el [README](../README.md).
+
+La demo de la raíz es un sitio estático. No hace falta un servidor de aplicación para publicarla: se suben los archivos tal como están.
 
 ## Ruta base `/lektor/`
 
@@ -82,8 +87,8 @@ Sin esos parámetros, la IA aparece apagada y el aviso de versión dice que la d
 
 ## Releases de Windows
 
-Los `.exe` de las versiones de escritorio que se publiquen más adelante van en GitHub Releases:
+Los `.exe` van en GitHub Releases:
 
 https://github.com/fortasec53-design/lektor/releases
 
-Eso es independiente de Pages. Un release no sustituye la rama `main`: la demo web sigue siendo la compilación de la raíz. Este repositorio no incluye hoy el proyecto con el que se generaría ese instalador.
+Eso es independiente de Pages. Un release no sustituye la rama `main`: la demo web de la raíz sigue siendo la compilación que ya estaba. El instalador se genera con `npm run dist` (NSIS). `electron-updater` lee `latest.yml` de esos releases (`owner: fortasec53-design`, `repo: lektor`). Para publicarlo desde la línea de comandos hace falta `GH_TOKEN` y `npm run dist -- --publish always`. También se pueden subir a mano el `.exe`, el `.blockmap` y `latest.yml`.

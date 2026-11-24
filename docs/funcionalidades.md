@@ -1,6 +1,8 @@
 # Funcionalidades de la demo
 
-Lo que sigue sale de la compilación publicada (`assets/index-BzLNX1sw.js` y `assets/mockApi-BJ7H9aw2.js`). Describe la interfaz y lo que la API simulada contesta. No describe un backend real: en el navegador, `mockApi` ocupa el lugar de `window.ocr`.
+Lo que sigue sale de la compilación publicada (`assets/index-BzLNX1sw.js` y `assets/mockApi-BJ7H9aw2.js`) y sigue valiendo para la interfaz reconstruida en `src/`. Describe la interfaz y lo que la API simulada contesta. No describe un backend real: en el navegador, `mockApi` ocupa el lugar de `window.ocr`.
+
+En Electron la lectura del PDF ya no es simulada: ver [ocr.md](ocr.md). El resto de las pantallas (seguimiento, bandeja, conectores, asistente) se comporta como aquí.
 
 Los textos de ejemplo (proyectos, personas, sedes, documentos) están marcados como ficticios dentro de los datos.
 
