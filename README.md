@@ -53,7 +53,7 @@ python3 -m http.server 8080
 
 Abre http://127.0.0.1:8080/lektor/
 
-En GitHub Pages se publica la rama `main`, carpeta raíz (`/`). Los pasos y el caso en que la carpeta del clon tiene otro nombre están en [docs/despliegue.md](docs/despliegue.md).
+En GitHub Pages se publica la rama `main`, carpeta raíz (`/`). El repositorio hoy se llama `Lektor` (con mayúscula). Pages distingue mayúsculas en la ruta, así que hay que renombrarlo a `lektor` antes de activarlo; si no, el sitio quedaría en `/Lektor/` y no encontraría estos archivos. Los pasos están en [docs/despliegue.md](docs/despliegue.md).
 
 ## Versiones de Windows (.exe)
 

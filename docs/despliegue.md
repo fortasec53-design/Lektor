@@ -13,15 +13,23 @@ Los iconos siguen en relativo (`./favicon.ico`, `./icono-32.png`). `mockApi` se 
 
 No se renombraron archivos ni se cambió la lógica de la app.
 
+## Nombre del repositorio
+
+En GitHub el repositorio se llama **`Lektor`**, con L mayúscula: [fortasec53-design/Lektor](https://github.com/fortasec53-design/Lektor). La dirección `…/lektor` abre el mismo repositorio porque GitHub no distingue mayúsculas en el nombre, pero el sitio de Pages sí las distingue en la ruta.
+
+Esta compilación pide los archivos en `/lektor/` (minúsculas). Con el nombre actual, Pages publicaría en `https://fortasec53-design.github.io/Lektor/` y el navegador no encontraría `/lektor/assets/…`.
+
+Antes de activar Pages, en **Settings → General** cambia el nombre del repositorio a `lektor`, todo en minúsculas. La URL del sitio queda entonces:
+
+https://fortasec53-design.github.io/lektor/
+
 ## GitHub Pages
 
 El sitio debe salir de la rama **`main`**, carpeta **`/` (raíz)**.
 
-URL prevista:
-
-https://fortasec53-design.github.io/lektor/
-
 En el repositorio: **Settings → Pages → Build and deployment → Deploy from a branch**, rama `main` y carpeta `/ (root)`, y guardar.
+
+Desde aquí no se pudo activar Pages: la credencial con la que se empujó el historial puede escribir en el repositorio, pero GitHub responde 403 («Resource not accessible by integration») al crear el sitio. Lo activa el dueño de la cuenta en Settings.
 
 GitHub tarda un momento en publicar el primer build. La página correcta pide los assets en `/lektor/assets/`. Si el navegador pide `/lector-demo/assets/`, está viendo la compilación anterior a este cambio.
 
