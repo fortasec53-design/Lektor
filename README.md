@@ -1,68 +1,50 @@
 # Lector de encuestas
 
-Demo web de **Lector de encuestas**. Convierte encuestas en papel, ya escaneadas en PDF, en datos, en tres pasos: subir el lote, revisar las marcas dudosas y exportar. Trae un panel de avance por proyecto y actividades, usuarios con roles, y un asistente con guía rápida (F1).
+Aplicación de escritorio para Windows. Convierte encuestas en papel, ya escaneadas en PDF, en datos: se sube el lote, se revisan las marcas dudosas y se exporta un Excel. La lectura corre en la computadora con Tesseract (español), sin servicio de pago.
 
-En esta publicación todo es ficticio. Si el navegador no trae `window.ocr` (la app de escritorio), el JavaScript compilado importa `assets/mockApi-BJ7H9aw2.js` y la interfaz trabaja contra esa API simulada, en memoria y en `localStorage`. No hay datos reales ni un servicio detrás.
+La primera vez la instalación está vacía: pide la cuenta de administración y el primer proyecto. Lo que se capture se guarda en la carpeta de usuario de Windows, no dentro del programa.
 
-**Este repositorio solo guarda la compilación** (HTML, CSS, JavaScript y los iconos que produce Vite). No está el código fuente: no hay `src/`, `package.json` ni forma de volver a compilar la app desde aquí.
+## Instalar
 
-## Qué hace la demo
-
-La bienvenida lo resume así: «Convierte encuestas en papel en datos, en tres pasos.»
-
-1. **Subir.** Se arrastran los PDF escaneados. La interfaz dice que el original no se modifica.
-2. **Revisar.** Solo salen las marcas que no se leyeron con seguridad. Lo que se deja sin respuesta queda vacío, nunca como 0.
-3. **Exportar.** La bienvenida lo describe como descargar el Excel o CSV para el análisis. En esta demo la exportación está simulada y el formato que registra `mockApi` es `xlsx`: responde que la exportación real solo existe en la app de escritorio.
-
-La barra lateral agrupa el resto:
-
-| Grupo | Pantallas |
-| --- | --- |
-| Trabajo | Asistente IA, Panel de avance, Seguimiento, Bandeja de entrada |
-| Encuestas | 1 · Subir lote, Procesando, 2 · Revisar, 3 · Exportar |
-| Administración | Conectores, Usuarios y roles, Personalización |
-
-Arriba se cambia el idioma (ES / EN), aparece el aviso «CONFIDENCIAL · datos de menores y víctimas» y el botón **?** abre la guía rápida. La misma guía se abre con **F1**. El detalle de cada pantalla está en [docs/funcionalidades.md](docs/funcionalidades.md).
-
-## Estructura
-
-```
-index.html                  página de entrada
-favicon.ico                 icono 16×16
-icono-32.png                icono 32×32
-assets/index-BzLNX1sw.js    interfaz compilada (React)
-assets/index-DakRZkfX.css   estilos compilados
-assets/mockApi-BJ7H9aw2.js  API simulada y datos ficticios
-docs/                       documentación
-```
-
-Los nombres con hash los generó Vite. La ruta base quedó fija en `/lektor/`: `index.html` pide `/lektor/assets/...` y el ayudante de precarga del JS (`modulepreload`) antepone `/lektor/` a los módulos. Con el repositorio renombrado a `lektor` y Pages activo, el sitio queda en:
-
-https://fortasec53-design.github.io/lektor/
-
-## Verla y publicarla
-
-Hace falta un servidor que sirva **esta carpeta** en la ruta `/lektor/`. Abrir `index.html` con `file://` no carga los scripts.
-
-En local, con el clon en una carpeta llamada `lektor`:
-
-```bash
-cd ..
-python3 -m http.server 8080
-```
-
-Abre http://127.0.0.1:8080/lektor/
-
-En GitHub Pages se publica la rama `main`, carpeta raíz (`/`). El repositorio hoy se llama `Lektor` (con mayúscula). Pages distingue mayúsculas en la ruta, así que hay que renombrarlo a `lektor` antes de activarlo; si no, el sitio quedaría en `/Lektor/` y no encontraría estos archivos. Los pasos están en [docs/despliegue.md](docs/despliegue.md).
-
-## Versiones de Windows (.exe)
-
-Las versiones de escritorio para Windows se van a publicar como archivos `.exe` en **GitHub Releases** de este repositorio:
+El instalador se publica en los Releases de este repositorio:
 
 https://github.com/fortasec53-design/lektor/releases
 
-Hoy no hay instaladores aquí. Esta rama es solo la demo web compilada. La propia demo distingue esa app de escritorio: ahí estaría la exportación real, la lectura de los PDF en el equipo y el inicio de sesión con un proveedor de IA. En la web esas acciones responden como simulación.
+Descarga `Lector-de-encuestas-Setup-<versión>.exe`, ábrelo y sigue el asistente (se puede elegir la carpeta). Al terminar, abre **Lector de encuestas**.
 
-## Procedencia
+## Actualizar
 
-El historial de `main` es el de [KodaHub2026/lector-demo](https://github.com/KodaHub2026/lector-demo) (rama `main`; no había otras ramas ni etiquetas). El commit de esa demo es `1301ca857b1ba343cdc2c3d80e881bd89f251d78`. Encima de ese historial solo se cambió la ruta base de `/lector-demo/` a `/lektor/` y se agregó esta documentación.
+La app instalada usa `electron-updater` y consulta esos mismos Releases (`owner: fortasec53-design`, `repo: lektor`). Si hay una versión más nueva, el aviso de la esquina permite descargarla y reiniciar para instalarla. El canal beta toma los releases marcados como prelanzamiento.
+
+Para que eso funcione, el release debe incluir el `.exe`, el `.blockmap` y `latest.yml`. Los pasos para generarlos están en [docs/despliegue.md](docs/despliegue.md).
+
+## Compilar
+
+Hace falta Node.js. En Linux, el instalador de Windows además necesita Wine de 32 bits.
+
+```bash
+npm install
+npm run build
+npm run dist
+```
+
+`npm run build` deja la interfaz en `dist/` (rutas relativas, listas para Electron). `npm run dist` arma `release/Lector-de-encuestas-Setup-<versión>.exe`.
+
+Para abrir la app en esta computadora sin generar el instalador:
+
+```bash
+npm run build
+npx electron .
+```
+
+## Probar el OCR
+
+```bash
+npm run ocr:probar
+```
+
+Genera `samples/encuesta-escaneada.pdf` (solo para desarrollo; no va en el instalador) y comprueba la lectura. El detalle y los límites están en [docs/ocr.md](docs/ocr.md).
+
+## Qué trae
+
+Subir PDF, revisar marcas dudosas, exportar Excel, seguimiento, bandeja, conectores, usuarios y un asistente que arranca apagado. El recorrido de las pantallas está en [docs/funcionalidades.md](docs/funcionalidades.md). Cómo se recuperó la interfaz, en [docs/reconstruccion.md](docs/reconstruccion.md).
