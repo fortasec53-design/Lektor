@@ -18,6 +18,7 @@ Los nombres de las pantallas (`PantallaRevision`, `PantallaSeguimiento`, etc.) s
 ## Aproximado o agregado
 
 - **OCR.** No estaba en el paquete. Se diseñó `src/ocr/` y se enchufó en `registrar_pdf`, `procesar_documento` y `pagina_imagen` solo cuando corre Electron. En el navegador esos comandos siguen igual que la demo (no hay imagen de la hoja; el mensaje es «La vista de la hoja no está disponible en este equipo»).
+- **App instalada vacía.** El `.exe` no carga `mockApi`. Arranca sin proyectos; `primer_arranque` crea el primero y una plantilla en blanco. Los datos van a `userData`. `samples/`, `docs/` y `scripts/` no se empaquetan.
 - **Aviso `dudosa`.** La compilación solo nombraba `doble_marca`, `sin_marca`, `marca_tenue` y `posible_borron`. Se agregó la frase para la confianza baja. La pantalla ya mostraba el aviso desconocido tal cual; ahora tiene texto.
 - **Excel de escritorio.** `exportar_lote` en la demo no genera el archivo. En Electron se arma un `.xlsx` mínimo (lote, documento, folio, página, clave, valor, aviso, confianza) y «Guardar en…» abre el diálogo.
 - **Actualizador.** En la demo es ficticio. En Electron, `electron-updater` habla con GitHub Releases de este repositorio. Sin empaquetar, la fase queda `inactivo` («versión de desarrollo»).

@@ -15,7 +15,9 @@ npm run dev
 
 Abre http://127.0.0.1:5173/lektor/
 
-En el navegador no hay `window.lektor`, así que entra la API simulada (`src/mock/mockApi.js`): los PDF no se leen, los datos son ficticios y viven en memoria y en `localStorage`. Sirven `?ia`, `?actualizacion` y `?excel=raro`, igual que en la demo compilada. Ver [docs/despliegue.md](docs/despliegue.md).
+En el navegador (`npm run dev` y `npm run build`) no hay `window.lektor`, así que entra la API simulada (`src/mock/mockApi.js`): los PDF no se leen, los datos son ficticios y viven en memoria y en `localStorage`. Sirven `?ia`, `?actualizacion` y `?excel=raro`. Ese mock **no entra** en el `.exe`: el build de escritorio usa `VITE_ESCRITORIO=1` y un almacén vacío.
+
+La app instalada abre sin proyectos ni encuestas. La primera vez pide el administrador y el primer proyecto («Esta instalación está vacía»). Lo que se capture se guarda en la carpeta de usuario del sistema (`userData/datos.json`), no dentro del programa. `samples/` y `npm run ocr:probar` quedan en el repositorio para desarrollo y electron-builder no los empaqueta. Ver [docs/ocr.md](docs/ocr.md).
 
 ## Compilar
 

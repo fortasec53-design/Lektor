@@ -158,6 +158,47 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
 
+function dirUsuario() {
+  return app.getPath("userData");
+}
+
+ipcMain.handle("datos:cargar", async () => {
+  try {
+    return JSON.parse(await fs.readFile(path.join(dirUsuario(), "datos.json"), "utf8"));
+  } catch {
+    return null;
+  }
+});
+
+ipcMain.handle("datos:guardar", async (_evento, datos) => {
+  const dir = dirUsuario();
+  await fs.mkdir(dir, { recursive: true });
+  const destino = path.join(dir, "datos.json");
+  const temporal = destino + ".tmp";
+  await fs.writeFile(temporal, JSON.stringify(datos));
+  await fs.rename(temporal, destino);
+  return true;
+});
+
+ipcMain.handle("datos:guardarHoja", async (_evento, payload) => {
+  const dir = path.join(dirUsuario(), "hojas");
+  await fs.mkdir(dir, { recursive: true });
+  const id = String(payload?.id ?? "").replace(/[^\d]/g, "");
+  if (!id) throw new Error("Hoja no válida");
+  await fs.writeFile(path.join(dir, id + ".json"), JSON.stringify(payload.vista ?? null));
+  return true;
+});
+
+ipcMain.handle("datos:leerHoja", async (_evento, id) => {
+  const limpio = String(id ?? "").replace(/[^\d]/g, "");
+  if (!limpio) return null;
+  try {
+    return JSON.parse(await fs.readFile(path.join(dirUsuario(), "hojas", limpio + ".json"), "utf8"));
+  } catch {
+    return null;
+  }
+});
+
 ipcMain.handle("dialogo:pdf", async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     title: "Elegir encuestas escaneadas",
@@ -165,6 +206,15 @@ ipcMain.handle("dialogo:pdf", async () => {
       { name: "PDF o imagen", extensions: ["pdf", "png", "jpg", "jpeg"] },
     ],
     properties: ["openFile", "multiSelections"],
+  });
+  return canceled ? [] : filePaths;
+});
+
+ipcMain.handle("dialogo:abrir", async (_evento, opciones = {}) => {
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    title: opciones.titulo || "Elegir archivo",
+    filters: Array.isArray(opciones.filtros) ? opciones.filtros : [],
+    properties: opciones.multiple ? ["openFile", "multiSelections"] : ["openFile"],
   });
   return canceled ? [] : filePaths;
 });

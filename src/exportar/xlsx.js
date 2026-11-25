@@ -21,10 +21,15 @@ const ENCABEZADOS = [
 
 /** Libro .xlsx mínimo. El valor vacío se escribe como celda en blanco, nunca como 0. */
 export function libroXlsx(filas) {
-  const tabla = [
+  return libroTabla(
     ENCABEZADOS,
-    ...filas.map((fila) => ENCABEZADOS.map((clave) => fila[clave] ?? "")),
-  ];
+    filas.map((fila) => ENCABEZADOS.map((clave) => fila[clave] ?? "")),
+  );
+}
+
+/** Tabla en blanco o con filas propias. No incluye datos de ejemplo. */
+export function libroTabla(encabezados, filas = []) {
+  const tabla = [encabezados, ...filas];
   const rows = tabla
     .map((fila, i) => {
       const celdas = fila

@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:escritorio": "cross-env ELECTRON=1 vite build",
+    "build:escritorio": "cross-env ELECTRON=1 VITE_ESCRITORIO=1 vite build",
     "dist": "npm run build:escritorio && electron-builder --win --publish never",
     "dist:linux": "npm run build:escritorio && electron-builder --linux dir --publish never",
     "ocr:probar": "node scripts/probar-ocr.mjs"
@@ -40,7 +40,17 @@
     "files": [
       "dist-electron/**/*",
       "electron/**/*",
-      "package.json"
+      "package.json",
+      "!samples/**",
+      "!docs/**",
+      "!scripts/**",
+      "!src/**",
+      "!**/*.{md,markdown}",
+      "!**/{test,tests,__tests__}/**",
+      "!node_modules/@napi-rs/**",
+      "!node_modules/**/docs/**",
+      "!node_modules/**/scripts/**",
+      "!node_modules/**/*.{md,markdown}"
     ],
     "extraResources": [
       {

@@ -44,7 +44,8 @@ Tesseract sobre esa misma hoja tiene que repetir ese criterio. En la muestra, «
 
 ## Límites (con honestidad)
 
-- No está el formato JSON de casillas del escritorio original (`importar_plantilla` en la demo no abre el archivo). Sin esa plantilla no sabemos la posición exacta de cada casilla de un cuestionario nuevo. La lectura asume el instrumento de ejemplo: una pregunta por bloque `P#` y tres opciones a la derecha de un cuadrito.
+- Al crear el primer proyecto, la app instalada agrega una **plantilla en blanco** (`PLANTILLA`), sin páginas ni respuestas. El lector sigue buscando `P1`, `P2`… y las opciones 1 Sí, 2 No, 9 No sabe, porque ese es el único diseño que sabe medir sin una plantilla de coordenadas. No es el instrumento `ENC-DEMO` ni trae el lote ficticio. Si el cuestionario usa otras preguntas, hay que revisar las celdas a mano o sustituir el formato en «Agregar formato de encuesta».
+- No está el formato JSON de casillas del escritorio original. `importar_plantilla` registra el archivo que elija la persona y no rellena respuestas. Sin coordenadas por casilla, la lectura sigue siendo la de la plantilla en blanco.
 - Un cuestionario con otro texto, varias encuestas por hoja, marcas en otro lado o fotos oscuras va a caer en `dudosa` o a fallar la detección. Hay que revisarlo a mano.
 - TIFF no se acepta. Solo PDF, PNG y JPEG.
 - La tinta es un porcentaje de pixeles oscuros dentro del recuadro. No es un modelo de marcas. Un borde grueso, una sombra o un sello pueden contarse como marca.

@@ -4,8 +4,15 @@ contextBridge.exposeInMainWorld("lektor", {
   esEscritorio: true,
   tessUrl: "lektor://tess",
   abrirPdf: () => ipcRenderer.invoke("dialogo:pdf"),
+  abrir: (opciones) => ipcRenderer.invoke("dialogo:abrir", opciones),
   leerArchivo: (ruta) => ipcRenderer.invoke("archivo:leer", ruta),
   guardarBytes: (payload) => ipcRenderer.invoke("archivo:guardar", payload),
+  datos: {
+    cargar: () => ipcRenderer.invoke("datos:cargar"),
+    guardar: (datos) => ipcRenderer.invoke("datos:guardar", datos),
+    guardarHoja: (id, vista) => ipcRenderer.invoke("datos:guardarHoja", { id, vista }),
+    leerHoja: (id) => ipcRenderer.invoke("datos:leerHoja", id),
+  },
   rutaDeArchivo: (archivo) => {
     try {
       return webUtils.getPathForFile(archivo);
