@@ -1,6 +1,6 @@
 # Lectura con Tesseract
 
-La compilación publicada no incluye la llamada al servicio de pago que usaba el escritorio original. Cuando el navegador no trae `window.ocr`, carga `mockApi` y no lee el PDF. Esta versión hace la lectura en Electron, sin llaves y sin salir de la computadora.
+La app lee los PDF en la computadora, con Tesseract, sin llaves y sin salir del equipo.
 
 ## Qué hace
 
@@ -50,4 +50,4 @@ Tesseract sobre esa misma hoja tiene que repetir ese criterio. En la muestra, «
 - TIFF no se acepta. Solo PDF, PNG y JPEG.
 - La tinta es un porcentaje de pixeles oscuros dentro del recuadro. No es un modelo de marcas. Un borde grueso, una sombra o un sello pueden contarse como marca.
 - Tesseract a veces junta la casilla con el número (`[J2no`). Se recorta el lado izquierdo de esa palabra; si el corte queda mal, la confianza baja y la celda va a revisión en lugar de aceptarse sola.
-- El asistente de la app puede seguir configurarse contra un modelo local o un proveedor. Eso no interviene en el OCR y no hay llaves en el repositorio. En la demo web esas pruebas siguen respondiendo que no hay IA externa.
+- El asistente puede apuntar a un modelo local. Eso no interviene en el OCR y no hay llaves en el repositorio.

@@ -127,8 +127,8 @@ function crearVentana() {
       webSecurity: true,
     },
   });
-  if (ES_DEV) win.loadURL("http://127.0.0.1:5173/lektor/");
-  else win.loadFile(path.join(__dirname, "..", "dist-electron", "index.html"));
+  if (ES_DEV) win.loadURL("http://127.0.0.1:5173/");
+  else win.loadFile(path.join(__dirname, "..", "dist", "index.html"));
   return win;
 }
 

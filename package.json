@@ -9,9 +9,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:escritorio": "cross-env ELECTRON=1 VITE_ESCRITORIO=1 vite build",
-    "dist": "npm run build:escritorio && electron-builder --win --publish never",
-    "dist:linux": "npm run build:escritorio && electron-builder --linux dir --publish never",
+    "dist": "npm run build && electron-builder --win --publish never",
+    "dist:linux": "npm run build && electron-builder --linux dir --publish never",
     "ocr:probar": "node scripts/probar-ocr.mjs"
   },
   "dependencies": {
@@ -25,7 +24,6 @@
   "devDependencies": {
     "@napi-rs/canvas": "^0.1.80",
     "@vitejs/plugin-react": "^4.4.1",
-    "cross-env": "^7.0.3",
     "electron": "^33.4.11",
     "electron-builder": "^25.1.8",
     "pdf-lib": "^1.17.1",
@@ -38,7 +36,7 @@
       "output": "release"
     },
     "files": [
-      "dist-electron/**/*",
+      "dist/**/*",
       "electron/**/*",
       "package.json",
       "!samples/**",
@@ -60,11 +58,15 @@
     ],
     "asar": true,
     "win": {
-      "target": ["nsis"],
+      "target": [
+        "nsis"
+      ],
       "icon": "build/icon.png"
     },
     "linux": {
-      "target": ["dir"],
+      "target": [
+        "dir"
+      ],
       "icon": "build/icon.png"
     },
     "nsis": {

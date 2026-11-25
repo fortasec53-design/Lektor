@@ -1,6 +1,5 @@
 /**
- * API de la app instalada. No importa mockApi: los datos ficticios de la
- * demo web no entran en este paquete.
+ * API de la app de escritorio. Los datos viven en la carpeta del usuario.
  */
 import { catalogoConectores, validarConector } from "../recuperado/interfaz.jsx";
 import { libroTabla, libroXlsx } from "../exportar/xlsx.js";

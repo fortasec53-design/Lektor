@@ -1692,11 +1692,6 @@ function PantallaAsistente({ ir: e }) {
                 <li>{`Las actualizaciones de la IA se guardan solo en la base local; la fuente del tablero no se toca.`}</li>
               </ul>
             </div>
-            {r?.demo && (
-              <p
-                className={`muted`}
-              >{`En la demo web estos ajustes no se guardan ni se conectan.`}</p>
-            )}
             <div className={`asis-fila`}>
               <button
                 type={`button`}
